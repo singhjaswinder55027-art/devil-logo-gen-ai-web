@@ -1,32 +1,32 @@
+import os
 from flask import Flask, render_template, request, jsonify
-import requests
 from urllib.parse import quote
 
-app = Flask(__name__, template_folder='../templates', static_folder='../static')
+# Vercel ke environment ke hisab se path set karna
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
+static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'static'))
 
-# API endpoint for the image generation model
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+
+# API endpoint
 API_URL = "https://ai-image-genl.vercel.app/"
 
 @app.route('/')
 def home():
-    """Renders the main page."""
     return render_template('index.html')
 
 @app.route('/generate-image')
 def generate_image():
-    """Generates an image by calling the external API."""
     prompt = request.args.get('prompt')
     if not prompt:
         return jsonify({'error': 'Prompt is required.'}), 400
-
-    # URL-encode the prompt to handle special characters
     encoded_prompt = quote(prompt)
-    
-    # Construct the full URL for the API call
     image_url = f"{API_URL}?prompt={encoded_prompt}"
-    
-    # In a real-world scenario, you might fetch the image and re-serve it.
-    # But for simplicity and speed, we can just return the direct URL.
+    return jsonify({'image_url': image_url})
+
+# Yeh zaroori hai, Flask instance ka naam 'app' hi hona chahiye
+# Vercel isi ko dhoondhta hai.
+turn the direct URL.
     return jsonify({'image_url': image_url})
 
 # This part is needed for local testing, Vercel will use its own entry point.
