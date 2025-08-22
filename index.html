@@ -1,70 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DEVIL LOOTS | AI Image Generator</title>
-<link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator | By DEVIL LOOTS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<div class="container">
-    <h1>DEVIL LOOTS | AI Image Generator</h1>
-    <p>Transform your ideas into stunning visuals with AI</p>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-pencil-alt"></i>
+                <h1>DEVIL LOOTS | AI Image Generator</h1>
+            </div>
+            <p>Transform your ideas into stunning visuals with AI</p>
+        </header>
 
-    <textarea id="prompt" placeholder="Describe the image you want to generate..."></textarea>
+        <main>
+            <form id="image-form">
+                <textarea id="prompt-input" placeholder="Describe the image you want to generate... (e.g., 'A cat wearing sunglasses on a beach')" required></textarea>
+                
+                <div class="models">
+                    <button type="button" class="model-btn active" data-model="devil-light">
+                        <i class="fas fa-bolt"></i> DEVIL LIGHT GEN
+                    </button>
+                    <button type="button" class="model-btn coming-soon" disabled>
+                        <i class="fas fa-cog"></i> DEVIL POWER GEN (Coming Soon)
+                    </button>
+                </div>
 
-    <div class="models">
-        <button id="lightGen" class="active">DEVIL LIGHT GEN</button>
-        <button id="powerGen" disabled>DEVIL POWER GEN (Coming Soon)</button>
+                <button type="submit" id="generate-btn">
+                    <i class="fas fa-pencil-alt"></i> Generate Image
+                </button>
+            </form>
+
+            <div id="loader" class="hidden">
+                <div class="spinner"></div>
+                <p>Generating your image...</p>
+            </div>
+
+            <section id="result-section" class="hidden">
+                <h2>Generated Image</h2>
+                <div id="image-container">
+                    </div>
+            </section>
+        </main>
+
+        <section class="features">
+            <div class="feature-item">
+                <i class="fas fa-bolt-lightning feature-icon"></i>
+                <h3>Lightning Fast</h3>
+                <p>Generate high-quality images in seconds using our powerful AI.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-palette feature-icon"></i>
+                <h3>Multiple Styles</h3>
+                <p>Choose between different AI models for varied artistic styles.</p>
+            </div>
+             <div class="feature-item">
+                <i class="fas fa-lock feature-icon"></i>
+                <h3>Private & Secure</h3>
+                <p>Your prompts and images are never stored or shared.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 AI Image Generator | Developed by DEVIL LOOTS</p>
+        </footer>
     </div>
-
-    <button id="generateBtn">Generate Image</button>
-
-    <div id="loading" class="hidden">
-        <p>Generating your image...</p>
-        <div class="loader"></div>
-    </div>
-
-    <div id="result" class="hidden">
-        <img id="generatedImg" src="" alt="Generated Image">
-        <a id="downloadBtn" href="#" download="image.png">Download</a>
-    </div>
-
-    <footer>
-        &copy; 2025 DEVIL LOOTS | All rights reserved
-    </footer>
-</div>
-
-<script>
-const generateBtn = document.getElementById('generateBtn');
-const promptBox = document.getElementById('prompt');
-const resultDiv = document.getElementById('result');
-const generatedImg = document.getElementById('generatedImg');
-const downloadBtn = document.getElementById('downloadBtn');
-const loadingDiv = document.getElementById('loading');
-
-generateBtn.onclick = async () => {
-    const prompt = promptBox.value.trim();
-    if (!prompt) return alert('Please enter a prompt');
-
-    resultDiv.classList.add('hidden');
-    loadingDiv.classList.remove('hidden');
-
-    const model = document.getElementById('lightGen').classList.contains('active') ? 'light' : 'power';
-
-    try {
-        const res = await fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}&model=${model}`);
-        const data = await res.json();
-        generatedImg.src = data.image;
-        downloadBtn.href = data.image;
-
-        loadingDiv.classList.add('hidden');
-        resultDiv.classList.remove('hidden');
-    } catch (e) {
-        alert('Error generating image');
-        loadingDiv.classList.add('hidden');
-    }
-};
-</script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
