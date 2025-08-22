@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEVIL LOOTS | AI Image Generator</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>DEVIL LOOTS | AI Image Generator</h1>
+    <p>Transform your ideas into stunning visuals with AI</p>
+
+    <textarea id="prompt" placeholder="Describe the image you want to generate..."></textarea>
+
+    <div class="models">
+        <button id="lightGen" class="active">DEVIL LIGHT GEN</button>
+        <button id="powerGen" disabled>DEVIL POWER GEN (Coming Soon)</button>
+    </div>
+
+    <button id="generateBtn">Generate Image</button>
+
+    <div id="loading" class="hidden">
+        <p>Generating your image...</p>
+        <div class="loader"></div>
+    </div>
+
+    <div id="result" class="hidden">
+        <img id="generatedImg" src="" alt="Generated Image">
+        <a id="downloadBtn" href="#" download="image.png">Download</a>
+    </div>
+
+    <footer>
+        &copy; 2025 DEVIL LOOTS | All rights reserved
+    </footer>
+</div>
+
+<script>
+const generateBtn = document.getElementById('generateBtn');
+const promptBox = document.getElementById('prompt');
+const resultDiv = document.getElementById('result');
+const generatedImg = document.getElementById('generatedImg');
+const downloadBtn = document.getElementById('downloadBtn');
+const loadingDiv = document.getElementById('loading');
+
+generateBtn.onclick = async () => {
+    const prompt = promptBox.value.trim();
+    if (!prompt) return alert('Please enter a prompt');
+
+    resultDiv.classList.add('hidden');
+    loadingDiv.classList.remove('hidden');
+
+    const model = document.getElementById('lightGen').classList.contains('active') ? 'light' : 'power';
+
+    try {
+        const res = await fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}&model=${model}`);
+        const data = await res.json();
+        generatedImg.src = data.image;
+        downloadBtn.href = data.image;
+
+        loadingDiv.classList.add('hidden');
+        resultDiv.classList.remove('hidden');
+    } catch (e) {
+        alert('Error generating image');
+        loadingDiv.classList.add('hidden');
+    }
+};
+</script>
+</body>
+</html>
