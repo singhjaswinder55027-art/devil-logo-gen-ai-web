@@ -10,6 +10,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
@@ -49,6 +50,7 @@ textarea {
     font-size: 16px;
     resize: none;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 .models {
@@ -69,6 +71,7 @@ textarea {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    transition: background-color 0.3s ease;
 }
 
 #devil-light-gen {
@@ -164,6 +167,10 @@ textarea {
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 .image-box:hover .download-overlay {
@@ -171,7 +178,7 @@ textarea {
 }
 
 .features {
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -211,3 +218,4 @@ footer {
     color: #777;
     font-size: 14px;
 }
+
