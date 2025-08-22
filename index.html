@@ -3,72 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Generator | By DEVIL LOOTS</title>
+    <title>DEVIL | AI Image Generator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fas fa-pencil-alt"></i>
-                <h1>DEVIL LOOTS | AI Image Generator</h1>
-            </div>
-            <p>Transform your ideas into stunning visuals with AI</p>
-        </header>
+        <div class="header">
+            <span class="pencil-icon">&#9998;</span>
+            <h1>DEVIL | AI Image Generator</h1>
+        </div>
+        <p class="subtitle">Transform your ideas into stunning visuals with AI</p>
 
-        <main>
-            <form id="image-form">
-                <textarea id="prompt-input" placeholder="Describe the image you want to generate... (e.g., 'A cat wearing sunglasses on a beach')" required></textarea>
-                
-                <div class="models">
-                    <button type="button" class="model-btn active" data-model="devil-light">
-                        <i class="fas fa-bolt"></i> DEVIL LIGHT GEN
-                    </button>
-                    <button type="button" class="model-btn coming-soon" disabled>
-                        <i class="fas fa-cog"></i> DEVIL POWER GEN (Coming Soon)
-                    </button>
-                </div>
-
-                <button type="submit" id="generate-btn">
-                    <i class="fas fa-pencil-alt"></i> Generate Image
+        <div class="form">
+            <textarea id="prompt-input" placeholder="Describe the image you want to generate... (e.g. 'A cat wearing sunglasses on a beach')"></textarea>
+            <div class="models">
+                <button class="model-btn active" id="devil-light-gen">
+                    <i class="fas fa-bolt"></i> DEVIL LIGHT GEN
                 </button>
-            </form>
-
-            <div id="loader" class="hidden">
-                <div class="spinner"></div>
-                <p>Generating your image...</p>
+                <button class="model-btn" id="devil-power-gen" disabled>
+                    <i class="fas fa-crown"></i> DEVIL POWER GEN (Coming Soon)
+                </button>
             </div>
+            <button id="generate-btn">
+                <span class="pencil-icon-btn">&#9998;</span> Generate Image
+            </button>
+        </div>
 
-            <section id="result-section" class="hidden">
-                <h2>Generated Image</h2>
-                <div id="image-container">
-                    </div>
-            </section>
-        </main>
+        <div id="loading" class="hidden">
+            <div class="loader"></div>
+            <p>Generating your image...</p>
+        </div>
+        
+        <div id="image-container" class="hidden">
+            <h2>Generated Image</h2>
+            <div class="image-box">
+                <img id="generated-image" src="" alt="Generated Image">
+                <a id="download-btn" class="download-overlay" href="" download="generated_image.png">
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
 
-        <section class="features">
-            <div class="feature-item">
-                <i class="fas fa-bolt-lightning feature-icon"></i>
+        <div class="features">
+            <div class="feature">
+                <div class="icon-bg">
+                    <i class="fas fa-bolt-lightning feature-icon"></i>
+                </div>
                 <h3>Lightning Fast</h3>
                 <p>Generate high-quality images in seconds using our powerful AI.</p>
             </div>
-            <div class="feature-item">
-                <i class="fas fa-palette feature-icon"></i>
+            <div class="feature">
+                <div class="icon-bg">
+                    <i class="fas fa-palette feature-icon"></i>
+                </div>
                 <h3>Multiple Styles</h3>
                 <p>Choose between different AI models for varied artistic styles.</p>
             </div>
-             <div class="feature-item">
-                <i class="fas fa-lock feature-icon"></i>
+            <div class="feature">
+                 <div class="icon-bg">
+                    <i class="fas fa-lock feature-icon"></i>
+                </div>
                 <h3>Private & Secure</h3>
                 <p>Your prompts and images are never stored or shared.</p>
             </div>
-        </section>
-
-        <footer>
-            <p>&copy; 2025 AI Image Generator | Developed by DEVIL LOOTS</p>
-        </footer>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2025 DEVIL LOOTS. All rights reserved.</p>
+    </footer>
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
